@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+#
+############################################
+# Filename: get_os_type.py
+# Author: Shawn Patterson
+# Description: Script to check OS type
+############################################
 
 #  Import any necessary modules
 import sys
