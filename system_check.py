@@ -68,11 +68,38 @@ if get_os == "Linux":
         print("System filesystem usage for / is below 85% threshold:", str(linux_disk_pct) + "%")
 print()
 
-# Get list of running processes
-pid_list = list()
-for proc in psutil.process_iter():
-    pid_dict = proc.as_dict(attrs=['pid', 'name', 'cpu_percent', 'memory_percent'])
-    pid_list.append(pid_dict)
-print("System processes:"'\n')
-for pid in pid_list:
-    print(pid)
+# Get list of running processes, Linux sorted by top CPU and top MEM usage
+if get_os == "Windows":
+    print("System processes:" '\n')
+    for proc in psutil.process_iter():
+        try:
+            proc_name = proc.name()
+            proc_pid = proc.pid
+            proc_mem = proc.memory_percent()
+            print("PID:", proc_pid, "::", "Name:", proc_name, "::", "MEM Usage:", str(proc_mem)[:4] + "%")
+        except psutil.NoSuchProcess:
+            pass
+
+if get_os == "Linux":
+    list_cpu = subprocess.Popen(
+        ["ps aux --sort -%cpu | head -15"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        shell=True
+    )
+    list_cpu_output, list_cpu_error = list_cpu.communicate()
+    print("System processes sorted by top 15 CPU usage:" + '\n' + '\n' + list_cpu_output + list_cpu_error)
+    print()
+
+    list_mem = subprocess.Popen(
+        ["ps aux --sort -%mem | head -15"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        shell=True
+    )
+    list_mem_output, list_mem_error = list_mem.communicate()
+    print("System processes sorted by top 15 MEM usage:" + '\n' + '\n' + list_mem_output + list_mem_error)
+    print()
+

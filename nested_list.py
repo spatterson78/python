@@ -36,3 +36,4 @@ for text, cmd in nlist:
     cmd_output, cmd_error = proc_cmd.communicate()
 
     print(text + '\n' + cmd_output + cmd_error)
+
