@@ -13,6 +13,7 @@
 import platform
 import getpass
 import psutil  # Important, might need to install psutil module on target systems
+import subprocess
 
 
 # Variables
