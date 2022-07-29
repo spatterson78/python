@@ -43,14 +43,14 @@ print()
 cpu_pct = psutil.cpu_percent(5)
 if cpu_pct > 90:
     print("System CPU usage is above 90% threshold:", str(cpu_pct) + "%")
-if cpu_pct < 90:
+else:
     print("System CPU usage is below 90% threshold:", str(cpu_pct) + "%")
 print()
 
 # Get RAM usage information
 if ram_pct > 85:
     print("System RAM usage is above 85% threshold:", str(ram_pct) + "%")
-if ram_pct < 85:
+else:
     print("System RAM usage is below 85% threshold:", str(ram_pct) + "%")
 print()
 
@@ -59,13 +59,13 @@ if get_os == "Windows":
     windows_disk_pct = psutil.disk_usage("C:/")[3]
     if windows_disk_pct > 85:
         print("System filesystem usage for C is above 90% threshold:", str(windows_disk_pct) + "%")
-    if windows_disk_pct < 85:
+    else:
         print("System filesystem usage for C is below 90% threshold:", str(windows_disk_pct) + "%")
 if get_os == "Linux":
     linux_disk_pct = psutil.disk_usage("/")[3]
     if linux_disk_pct > 85:
         print("System filesystem usage for / is above 85% threshold:", str(linux_disk_pct) + "%")
-    if linux_disk_pct < 85:
+    else:
         print("System filesystem usage for / is below 85% threshold:", str(linux_disk_pct) + "%")
 print()
 
@@ -78,6 +78,7 @@ if get_os == "Windows":
             proc_pid = proc.pid
             proc_mem = proc.memory_percent()
             print("PID:", proc_pid, "::", "Name:", proc_name, "::", "MEM Usage:", str(proc_mem)[:4] + "%")
+            print()
         except psutil.NoSuchProcess:
             pass
 
@@ -103,4 +104,8 @@ if get_os == "Linux":
     list_mem_output, list_mem_error = list_mem.communicate()
     print("System processes sorted by top 15 MEM usage:" + '\n' + '\n' + list_mem_output + list_mem_error)
     print()
+
+# End of system gathering and footer
+print("-------------------------------------------------------------------------")
+print("Please review the gathered information for any items that need attention.")
 
