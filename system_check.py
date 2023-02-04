@@ -23,51 +23,44 @@ ram_pct = psutil.virtual_memory()[2]
 # Show current user & output header
 print()
 print("Hello " + getpass.getuser(), ", current system information:")
-print("----------------------------------------------")
-print()
+print("----------------------------------------------" '\n')
 
 # Get system platform (Windows, Linux, UNIX, etc,)
 if get_os == "Windows":
-    print("System Platform:", platform.system(), platform.version(), platform.machine())
+    print("System Platform:", platform.system(), platform.version(), platform.machine() + '\n')
 if get_os == "Linux":
-    print("System Platform:", platform.system(), platform.release(), platform.machine())
-print()
+    print("System Platform:", platform.system(), platform.release(), platform.machine() + '\n')
 
 # Get system hostname/computer name
-print("System hostname:", platform.node())
-print()
+print("System hostname:", platform.node() + '\n')
 
 # Get CPU usage information
-print("Gathering system CPU usage over 5 second interval, please wait...")
-print()
+print("Gathering system CPU usage over 5 second interval, please wait..." '\n')
 cpu_pct = psutil.cpu_percent(5)
 if cpu_pct > 90:
-    print("System CPU usage is above 90% threshold:", str(cpu_pct) + "%")
+    print("System CPU usage is above 90% threshold:", str(cpu_pct) + "%" '\n')
 else:
-    print("System CPU usage is below 90% threshold:", str(cpu_pct) + "%")
-print()
+    print("System CPU usage is below 90% threshold:", str(cpu_pct) + "%" '\n')
 
 # Get RAM usage information
 if ram_pct > 85:
-    print("System RAM usage is above 85% threshold:", str(ram_pct) + "%")
+    print("System RAM usage is above 85% threshold:", str(ram_pct) + "%" '\n')
 else:
-    print("System RAM usage is below 85% threshold:", str(ram_pct) + "%")
-print()
+    print("System RAM usage is below 85% threshold:", str(ram_pct) + "%" '\n')
 
 # Get filesystem information
 if get_os == "Windows":
     windows_disk_pct = psutil.disk_usage("C:/")[3]
     if windows_disk_pct > 85:
-        print("System filesystem usage for C is above 90% threshold:", str(windows_disk_pct) + "%")
+        print("System filesystem usage for C is above 90% threshold:", str(windows_disk_pct) + "%" '\n')
     else:
-        print("System filesystem usage for C is below 90% threshold:", str(windows_disk_pct) + "%")
+        print("System filesystem usage for C is below 90% threshold:", str(windows_disk_pct) + "%" '\n')
 if get_os == "Linux":
     linux_disk_pct = psutil.disk_usage("/")[3]
     if linux_disk_pct > 85:
-        print("System filesystem usage for / is above 85% threshold:", str(linux_disk_pct) + "%")
+        print("System filesystem usage for / is above 85% threshold:", str(linux_disk_pct) + "%" '\n')
     else:
-        print("System filesystem usage for / is below 85% threshold:", str(linux_disk_pct) + "%")
-print()
+        print("System filesystem usage for / is below 85% threshold:", str(linux_disk_pct) + "%" '\n')
 
 # Get list of running processes, Linux sorted by top CPU and top MEM usage
 if get_os == "Windows":
@@ -77,8 +70,7 @@ if get_os == "Windows":
             proc_name = proc.name()
             proc_pid = proc.pid
             proc_mem = proc.memory_percent()
-            print("PID:", proc_pid, "::", "Name:", proc_name, "::", "MEM Usage:", str(proc_mem)[:4] + "%")
-            print()
+            print("PID:", proc_pid, "::", "Name:", proc_name, "::", "MEM Usage:", str(proc_mem)[:4] + "%" '\n')
         except psutil.NoSuchProcess:
             pass
 
@@ -91,8 +83,7 @@ if get_os == "Linux":
         shell=True
     )
     list_cpu_output, list_cpu_error = list_cpu.communicate()
-    print("System processes sorted by top 15 CPU usage:" + '\n' + '\n' + list_cpu_output + list_cpu_error)
-    print()
+    print("System processes sorted by top 15 CPU usage:" + '\n' + '\n' + list_cpu_output + list_cpu_error + '\n')
 
     list_mem = subprocess.Popen(
         ["ps aux --sort -%mem | head -15"],
@@ -102,10 +93,9 @@ if get_os == "Linux":
         shell=True
     )
     list_mem_output, list_mem_error = list_mem.communicate()
-    print("System processes sorted by top 15 MEM usage:" + '\n' + '\n' + list_mem_output + list_mem_error)
-    print()
+    print("System processes sorted by top 15 MEM usage:" + '\n' + '\n' + list_mem_output + list_mem_error + '\n')
 
 # End of system gathering and footer
 print("-------------------------------------------------------------------------")
-print("Please review the gathered information for any items that need attention.")
+print("Please review the gathered information for any items that need attention."'\n')
 
