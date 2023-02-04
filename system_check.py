@@ -97,5 +97,5 @@ if get_os == "Linux":
 
 # End of system gathering and footer
 print("-------------------------------------------------------------------------")
-print("Please review the gathered information for any items that need attention."'\n')
+print("Please review the gathered information for any items that need attention." '\n')
 
